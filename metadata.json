@@ -1,0 +1,6 @@
+{
+  "name": "University Management System",
+  "description": "A comprehensive university management system with custom dashboards, student and staff management, academic scheduling, grading, and finance tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

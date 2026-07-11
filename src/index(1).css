@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-500: #2563eb;
+  --color-brand-655: #1e3a8a;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1e40af;
+
+  /* Clean Minimalist sky- overrides to maps everything into cohesive royal/slate blue */
+  --color-sky-50: #eff6ff;
+  --color-sky-100: #dbeafe;
+  --color-sky-200: #bfdbfe;
+  --color-sky-300: #93c5fd;
+  --color-sky-400: #60a5fa;
+  --color-sky-500: #2563eb;
+  --color-sky-550: #1d4ed8;
+  --color-sky-600: #1d4ed8;
+  --color-sky-700: #1e40af;
+  --color-sky-800: #1e3a8a;
+  --color-sky-950: #0f172a;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.table-container {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}

@@ -14,27 +14,25 @@
       "username": "john.staff",
       "email": "john@university.com",
       "role": "STAFF",
-      "isActive": false,
+      "isActive": true,
       "createdAt": "2026-01-01T00:00:00.000Z",
       "password": "password"
     },
     {
       "id": 3,
-      "username": "stu001",
+      "username": "jane.student",
       "email": "jane@university.com",
       "role": "STUDENT",
       "isActive": true,
       "createdAt": "2026-01-01T00:00:00.000Z",
-      "password": "0716075433Gambo@",
-      "isVerified": false,
-      "verificationCode": "296816"
+      "password": "password"
     },
     {
       "id": 4,
       "username": "robert.staff",
       "email": "robert@university.com",
       "role": "STAFF",
-      "isActive": false,
+      "isActive": true,
       "createdAt": "2026-01-01T00:00:00.000Z",
       "password": "password"
     },
@@ -43,7 +41,7 @@
       "username": "isaac.staff",
       "email": "isaac@university.com",
       "role": "STAFF",
-      "isActive": false,
+      "isActive": true,
       "createdAt": "2026-01-01T00:00:00.000Z",
       "password": "password"
     },
@@ -95,30 +93,6 @@
       "password": "0716075433Gambo@",
       "isVerified": true,
       "verificationCode": "601564"
-    },
-    {
-      "id": 11,
-      "username": "hussein ",
-      "email": "MMwamuyazah@gmail.com",
-      "role": "STUDENT",
-      "isActive": true,
-      "createdAt": "2026-07-11T14:06:36.144Z"
-    },
-    {
-      "id": 12,
-      "username": "musa",
-      "email": "MMwamuyazah@gmail.com",
-      "role": "STAFF",
-      "isActive": true,
-      "createdAt": "2026-07-11T14:07:41.876Z"
-    },
-    {
-      "id": 13,
-      "username": "Mwamuyzah",
-      "email": "MMwamuyazah@gmail.com",
-      "role": "STAFF",
-      "isActive": true,
-      "createdAt": "2026-07-11T14:18:25.007Z"
     }
   ],
   "students": [
@@ -149,28 +123,61 @@
       "address": "NAIROBI",
       "enrollmentDate": "2026-07-01",
       "status": "PENDING_APPROVAL",
-      "adminApproved": true,
+      "adminApproved": false,
       "lecturerApproved": false,
       "email": "mosesmwamuye97@gmail.com",
       "profilePic": "https://images.unsplash.com/photo-1500000282826?w=150"
-    },
-    {
-      "id": 3,
-      "userId": 11,
-      "studentId": "STU482",
-      "firstName": "Hussein ",
-      "lastName": "Andrew ",
-      "dateOfBirth": "2004-01-01",
-      "gender": "MALE",
-      "phone": "",
-      "address": "",
-      "enrollmentDate": "2026-07-11",
-      "status": "ACTIVE",
-      "email": "MMwamuyazah@gmail.com",
-      "profilePic": "https://images.unsplash.com/photo-1500000171593?w=150"
     }
   ],
   "staff": [
+    {
+      "id": 1,
+      "userId": 2,
+      "staffId": "STF001",
+      "firstName": "John",
+      "lastName": "Doe",
+      "position": "Senior Teacher",
+      "department": "Computer Science",
+      "qualification": "M.Sc. in Computer Science",
+      "joiningDate": "2020-01-15",
+      "phone": "1234567890",
+      "email": "john@university.com",
+      "address": "123 Faculty Lane, West Campus",
+      "status": "ACTIVE",
+      "profilePic": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"
+    },
+    {
+      "id": 2,
+      "userId": 4,
+      "staffId": "STF002",
+      "firstName": "Robert",
+      "lastName": "Boyle",
+      "position": "Lecturer",
+      "department": "Mechanical Engineering",
+      "qualification": "Ph.D. in Thermodynamics",
+      "joiningDate": "2021-08-10",
+      "phone": "555-0102",
+      "email": "robert@university.com",
+      "address": "254 Engineering Annex",
+      "status": "ACTIVE",
+      "profilePic": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150"
+    },
+    {
+      "id": 3,
+      "userId": 5,
+      "staffId": "STF003",
+      "firstName": "Isaac",
+      "lastName": "Newton",
+      "position": "Professor",
+      "department": "Mechanical Engineering",
+      "qualification": "Ph.D. in Classical Mechanics",
+      "joiningDate": "2019-02-12",
+      "phone": "555-0103",
+      "email": "isaac@university.com",
+      "address": "101 Newton Core Tower",
+      "status": "ACTIVE",
+      "profilePic": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150"
+    },
     {
       "id": 4,
       "userId": 6,
@@ -215,40 +222,8 @@
       "phone": "",
       "email": "mmwamuyazah@gmail.com",
       "address": "NAIROBI",
-      "status": "ACTIVE",
+      "status": "PENDING_APPROVAL",
       "profilePic": "https://images.unsplash.com/photo-1510000130255?w=150"
-    },
-    {
-      "id": 7,
-      "userId": 12,
-      "staffId": "STF444",
-      "firstName": "musa",
-      "lastName": "musa",
-      "position": "Lecturer",
-      "department": "Software Engineering",
-      "qualification": "PhD in System Architecture",
-      "joiningDate": "2026-07-11",
-      "phone": "",
-      "email": "MMwamuyazah@gmail.com",
-      "address": "",
-      "status": "ACTIVE",
-      "profilePic": "https://images.unsplash.com/photo-1510000116554?w=150"
-    },
-    {
-      "id": 8,
-      "userId": 13,
-      "staffId": "STF964",
-      "firstName": "mwamuyazah",
-      "lastName": "mwamuyzah",
-      "position": "Lecturer",
-      "department": "Computer Science",
-      "qualification": "PhD in System Architecture",
-      "joiningDate": "2026-07-11",
-      "phone": "",
-      "email": "MMwamuyazah@gmail.com",
-      "address": "",
-      "status": "ACTIVE",
-      "profilePic": "https://images.unsplash.com/photo-1510000494079?w=150"
     }
   ],
   "classes": [
@@ -337,6 +312,36 @@
   ],
   "staffSubjects": [
     {
+      "id": 1,
+      "staffId": 1,
+      "subjectId": 1,
+      "academicYear": "2024"
+    },
+    {
+      "id": 2,
+      "staffId": 1,
+      "subjectId": 2,
+      "academicYear": "2024"
+    },
+    {
+      "id": 3,
+      "staffId": 1,
+      "subjectId": 4,
+      "academicYear": "2024"
+    },
+    {
+      "id": 4,
+      "staffId": 2,
+      "subjectId": 5,
+      "academicYear": "2024"
+    },
+    {
+      "id": 5,
+      "staffId": 3,
+      "subjectId": 6,
+      "academicYear": "2024"
+    },
+    {
       "id": 6,
       "staffId": 4,
       "subjectId": 7,
@@ -369,27 +374,6 @@
       "classId": 1,
       "enrollmentDate": "2026-07-01",
       "status": "PENDING"
-    },
-    {
-      "id": 3,
-      "studentId": 3,
-      "classId": 2,
-      "enrollmentDate": "2026-07-11",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 4,
-      "studentId": 2,
-      "classId": 1,
-      "enrollmentDate": "2026-07-11",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 5,
-      "studentId": 3,
-      "classId": 1,
-      "enrollmentDate": "2026-07-11",
-      "status": "ACTIVE"
     }
   ],
   "feeStructures": [
@@ -447,22 +431,6 @@
       "allowances": 0,
       "deductions": 0,
       "effectiveFrom": "2026-07-01"
-    },
-    {
-      "id": 3,
-      "staffId": 7,
-      "basicSalary": 6000,
-      "allowances": 1000,
-      "deductions": 350,
-      "effectiveFrom": "2026-07-11"
-    },
-    {
-      "id": 4,
-      "staffId": 8,
-      "basicSalary": 6000,
-      "allowances": 1000,
-      "deductions": 350,
-      "effectiveFrom": "2026-07-11"
     }
   ],
   "salaryPayments": [
@@ -611,141 +579,6 @@
     }
   ],
   "logs": [
-    {
-      "id": 23,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "CREATE_STAFF",
-      "details": "Registered new faculty mwamuyazah mwamuyzah (STF964)",
-      "timestamp": "2026-07-11T14:18:25.019Z"
-    },
-    {
-      "id": 22,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "DELETE_STAFF",
-      "details": "Deallocated and deactivated staff record ID 3",
-      "timestamp": "2026-07-11T14:16:56.606Z"
-    },
-    {
-      "id": 21,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "DELETE_STAFF",
-      "details": "Deallocated and deactivated staff record ID 2",
-      "timestamp": "2026-07-11T14:16:53.046Z"
-    },
-    {
-      "id": 20,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "AUTH_LOGIN",
-      "details": "Successfully logged in. Role: ADMIN",
-      "timestamp": "2026-07-11T14:12:52.865Z"
-    },
-    {
-      "id": 19,
-      "userId": 3,
-      "username": "stu001",
-      "role": "STUDENT",
-      "action": "AUTH_SIGNUP",
-      "details": "Student self-onboarded using pre-registered credentials. Verification code generated: 296816",
-      "timestamp": "2026-07-11T14:12:26.209Z"
-    },
-    {
-      "id": 18,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "AUTH_LOGIN",
-      "details": "Successfully logged in. Role: ADMIN",
-      "timestamp": "2026-07-11T14:10:14.169Z"
-    },
-    {
-      "id": 17,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "EDIT_EMAIL_TEMPLATE",
-      "details": "Admin updated email template: PASSWORD_RESET",
-      "timestamp": "2026-07-11T14:09:42.198Z"
-    },
-    {
-      "id": 16,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "CREATE_STAFF",
-      "details": "Registered new faculty musa musa (STF444)",
-      "timestamp": "2026-07-11T14:07:41.882Z"
-    },
-    {
-      "id": 15,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "ENROLL_STUDENT",
-      "details": "Enrolled Student Hussein  Andrew  in Class Id 1",
-      "timestamp": "2026-07-11T14:06:52.780Z"
-    },
-    {
-      "id": 14,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "ENROLL_STUDENT",
-      "details": "Enrolled Student moses moses in Class Id 1",
-      "timestamp": "2026-07-11T14:06:46.298Z"
-    },
-    {
-      "id": 13,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "CREATE_STUDENT",
-      "details": "Created student Hussein  Andrew  (STU482)",
-      "timestamp": "2026-07-11T14:06:36.154Z"
-    },
-    {
-      "id": 12,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "DELETE_STAFF",
-      "details": "Deallocated and deactivated staff record ID 1",
-      "timestamp": "2026-07-11T14:04:30.881Z"
-    },
-    {
-      "id": 11,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "APPROVE_STUDENT_ADMIN",
-      "details": "Admissions (Admin) approved student admission record ID 2",
-      "timestamp": "2026-07-11T14:04:03.503Z"
-    },
-    {
-      "id": 10,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "APPROVE_STAFF",
-      "details": "Admissions approved staff member ID 6 (Mwamuye Moses)",
-      "timestamp": "2026-07-11T14:03:59.493Z"
-    },
-    {
-      "id": 9,
-      "userId": 1,
-      "username": "admin",
-      "role": "ADMIN",
-      "action": "AUTH_LOGIN",
-      "details": "Successfully logged in. Role: ADMIN",
-      "timestamp": "2026-07-11T14:03:46.861Z"
-    },
     {
       "id": 8,
       "userId": 10,
@@ -897,49 +730,25 @@
     }
   ],
   "studentSubmissions": [],
-  "emailTemplates": [
-    {
-      "id": "STUDENT_ONBOARDING",
-      "name": "Student Onboarding Code",
-      "subject": "Verify Your University Hub Account",
-      "text": "Hello {{firstName}},\n\nWelcome to University Hub! Your 6-digit verification code is: {{verificationCode}}\n\nPlease enter this code in the app to activate your account.\n\nBest regards,\nUniversity Hub Admissions Board",
-      "html": "<div style=\"font-family: sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; background: #ffffff;\">\n  <h2 style=\"color: #1e3a8a; border-bottom: 2px solid #3b82f6; padding-bottom: 10px; margin-top: 0;\">Verify Your Account</h2>\n  <p>Hello <strong>{{firstName}} {{lastName}}</strong>,</p>\n  <p>Welcome to <strong>University Hub</strong>! We are thrilled to have you join our academic portal.</p>\n  <p>To finalize your registration and secure your profile, please verify your email address using the 6-digit activation code below:</p>\n  <div style=\"text-align: center; margin: 30px 0;\">\n    <span style=\"font-size: 32px; font-weight: bold; font-family: monospace; letter-spacing: 5px; color: #1e3a8a; background: #eff6ff; padding: 12px 30px; border-radius: 8px; border: 1px solid #bfdbfe; display: inline-block;\">\n      {{verificationCode}}\n    </span>\n  </div>\n  <p style=\"font-size: 13px; color: #64748b;\">If you haven't recently signed up for University Hub, please ignore this message.</p>\n  <hr style=\"border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;\" />\n  <p style=\"font-size: 11px; text-align: center; color: #94a3b8; margin-bottom: 0;\">University Hub Admissions & Registrar Board</p>\n</div>"
-    },
-    {
-      "id": "STAFF_ONBOARDING",
-      "name": "Staff Portal Onboarding Code",
-      "subject": "Verify Your University Hub Faculty Account",
-      "text": "Hello {{firstName}},\n\nWelcome to University Hub Faculty! Your login username (Surname) is: {{generatedUsername}}\nYour temporary password is: {{generatedPassword}}\n\nYour 6-digit verification code is: {{verificationCode}}\n\nPlease enter this code in the app to activate your account.\n\nBest regards,\nUniversity Hub Faculty Board",
-      "html": "<div style=\"font-family: sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; background: #ffffff;\">\n  <h2 style=\"color: #0f766e; border-bottom: 2px solid #0d9488; padding-bottom: 10px; margin-top: 0;\">Faculty Hub Verification</h2>\n  <p>Hello <strong>Prof. {{firstName}} {{lastName}}</strong>,</p>\n  <p>Welcome to <strong>University Hub</strong>! We are thrilled to welcome you to our academic instruction team.</p>\n  <p>Your login credentials have been automatically generated as requested:</p>\n  <div style=\"background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 6px; margin: 15px 0;\">\n    <p style=\"margin: 4px 0; font-size: 13px;\"><strong>Username (Surname):</strong> <code style=\"color: #0d9488; font-weight: bold;\">{{generatedUsername}}</code></p>\n    <p style=\"margin: 4px 0; font-size: 13px;\"><strong>Temporary Password:</strong> <code style=\"color: #0d9488; font-weight: bold;\">{{generatedPassword}}</code></p>\n  </div>\n  <p>To finalize your registration and secure your profile, please verify your email address using the 6-digit faculty activation code below:</p>\n  <div style=\"text-align: center; margin: 30px 0;\">\n    <span style=\"font-size: 32px; font-weight: bold; font-family: monospace; letter-spacing: 5px; color: #0d9488; background: #f0fdfa; padding: 12px 30px; border-radius: 8px; border: 1px solid #ccfbf1; display: inline-block;\">\n      {{verificationCode}}\n    </span>\n  </div>\n  <p style=\"font-size: 13px; color: #64748b;\">If you did not request this verification process, please disregard this email.</p>\n  <hr style=\"border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;\" />\n  <p style=\"font-size: 11px; text-align: center; color: #94a3b8; margin-bottom: 0;\">University Hub Administrative Registrar</p>\n</div>"
-    },
-    {
-      "id": "PASSWORD_RESET",
-      "name": "Security Password Reset",
-      "subject": "Reset Your University Hub Credentials",
-      "text": "Hello {{username}},\n\nA request was completed to reset your security keys on the academic portal. Your security reset authorization code is: {{resetCode}}\n\nPlease input this code to finalize your passcode update.\n\nWarm regards,\nIT Systems & Security Administration",
-      "html": "<div style=\"font-family: sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; background: #ffffff;\">\n  <h2 style=\"color: #651fff; border-bottom: 2px solid #7c4dff; padding-bottom: 10px; margin-top: 0;\">Credential Security Reset</h2>\n  <p>Hello <strong>{{username}}</strong>,</p>\n  <p>We received an inquiry to reset your password. Please authorize this process by inputting the security authorization code below:</p>\n  <div style=\"text-align: center; margin: 30px 0;\">\n    <span style=\"font-size: 32px; font-weight: bold; font-family: monospace; letter-spacing: 5px; color: #651fff; background: #f3e5f5; padding: 12px 30px; border-radius: 8px; border: 1px solid #e040fb; display: inline-block;\">\n      {{resetCode}}\n    </span>\n  </div>\n  <p style=\"font-size: 13px; color: #64748b;\">If you did not initiate this request, please contact the support team immediately to secure your credentials.</p>\n  <hr style=\"border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;\" />\n  <p style=\"font-size: 11px; text-align: center; color: #94a3b8; margin-bottom: 0;\">University Hub IT Security Desk</p>\n</div>"
-    }
-  ],
   "nextId": {
-    "users": 14,
-    "students": 4,
-    "staff": 9,
+    "users": 11,
+    "students": 3,
+    "staff": 7,
     "classes": 4,
     "subjects": 8,
     "staffSubjects": 9,
-    "studentEnrollments": 6,
+    "studentEnrollments": 3,
     "feeStructures": 3,
     "feePayments": 2,
-    "salaryStructures": 5,
+    "salaryStructures": 3,
     "salaryPayments": 2,
     "classrooms": 4,
     "classroomAssignments": 7,
     "grades": 3,
     "attendance": 3,
-    "logs": 24,
+    "logs": 9,
     "courseNotes": 3,
     "quizzesAndAssignments": 3,
     "studentSubmissions": 1
-  },
-  "sessions": []
+  }
 }

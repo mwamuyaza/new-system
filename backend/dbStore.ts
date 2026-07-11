@@ -865,6 +865,12 @@ export class DbStore {
     return this.state;
   }
 
+  public reset(): DbState {
+    this.state = buildInitialState();
+    this.save();
+    return this.state;
+  }
+
   private getNextId(table: keyof DbState['nextId']): number {
     const id = this.state.nextId[table] || 1;
     this.state.nextId[table] = id + 1;

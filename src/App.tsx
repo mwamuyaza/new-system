@@ -222,6 +222,35 @@ export default function App() {
     }
   };
 
+  const handleQuickLogin = (uname: string, pword: string) => {
+    setUsername(uname);
+    setPassword(pword);
+    setTimeout(async () => {
+      setLoginError('');
+      try {
+        const res = await axios.post('/api/auth/login', { username: uname, password: pword });
+        const { token: userToken, user: userData, profile: userProfile } = res.data;
+        
+        localStorage.setItem('uni_hub_token', userToken);
+        localStorage.setItem('uni_hub_user', JSON.stringify(userData));
+        if (userProfile) {
+          localStorage.setItem('uni_hub_profile', JSON.stringify(userProfile));
+          setProfile(userProfile);
+        } else {
+          localStorage.removeItem('uni_hub_profile');
+          setProfile(null);
+        }
+        
+        setToken(userToken);
+        setUser(userData);
+        setActiveTab(userData.role === 'STUDENT' ? 'classes' : 'dashboard');
+        setLoginError('');
+      } catch (err: any) {
+        setLoginError(err.response?.data?.error || "Quick login failed.");
+      }
+    }, 100);
+  };
+
   const validatePassword = (pwd: string): string | null => {
     if (pwd.length < 10) {
       return "Security Policy Violation: Password must be at least 10 characters long.";
@@ -381,16 +410,19 @@ export default function App() {
     setLoginError('');
     setForgotSuccess('');
 
-    if (!forgotUsername || !forgotEmail) {
-      setLoginError("Please provide your username and associated email address.");
+    if (!forgotEmail) {
+      setLoginError("Please provide your registered email address.");
       return;
     }
 
     try {
       const res = await axios.post('/api/auth/forgot-password-request', {
-        username: forgotUsername,
         email: forgotEmail
       });
+      // Prefill recovered username in the background
+      if (res.data.username) {
+        setForgotUsername(res.data.username);
+      }
       // Set OTP locally under sentCode if returned for debug preview fallback
       setSentCode(res.data._debugCode || 'SERVER_VERIFIED');
       setResetStep('verify');
@@ -454,6 +486,14 @@ export default function App() {
     setUser(null);
     setProfile(null);
     setActiveTab('dashboard');
+  };
+
+  const handleSandboxUserSwitch = (newUser: any, newToken: string, newProfile: any) => {
+    setToken(newToken);
+    setUser(newUser);
+    setProfile(newProfile);
+    setActiveTab(newUser.role === 'STUDENT' ? 'classes' : 'dashboard');
+    setLoginError('');
   };
 
   // Synchronise dashboard stats
@@ -703,6 +743,47 @@ export default function App() {
                   <span>Enter University Hub</span>
                 </button>
               </form>
+
+              {/* Quick-Test Access Portal Card */}
+              <div className="pt-5 border-t border-slate-100 space-y-3">
+                <div className="text-center">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-400 bg-slate-50 px-2.5 py-1 rounded-full border border-slate-200/50 inline-block">
+                    Quick-Test Access Portal
+                  </span>
+                  <p className="text-[10px] text-slate-500 mt-1.5 font-medium leading-relaxed">
+                    Click any card below to instantly sign in with seeded default credentials
+                  </p>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handleQuickLogin('admin', 'admin')}
+                    className="flex flex-col items-center justify-center p-3 bg-slate-50 hover:bg-blue-50/40 border border-slate-200 hover:border-blue-500 rounded-xl text-center transition-all group cursor-pointer"
+                  >
+                    <span className="text-[10px] font-bold text-slate-700 group-hover:text-blue-600 transition-colors">Admin</span>
+                    <span className="text-[8px] font-mono text-slate-400 mt-1.5 font-bold">U: admin</span>
+                    <span className="text-[8px] font-mono text-slate-400">P: admin</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleQuickLogin('john.staff', 'password')}
+                    className="flex flex-col items-center justify-center p-3 bg-slate-50 hover:bg-emerald-50/40 border border-slate-200 hover:border-emerald-500 rounded-xl text-center transition-all group cursor-pointer"
+                  >
+                    <span className="text-[10px] font-bold text-slate-700 group-hover:text-emerald-600 transition-colors">Faculty</span>
+                    <span className="text-[8px] font-mono text-slate-400 mt-1.5 font-bold">U: john.staff</span>
+                    <span className="text-[8px] font-mono text-slate-400">P: password</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleQuickLogin('jane.student', 'password')}
+                    className="flex flex-col items-center justify-center p-3 bg-slate-50 hover:bg-amber-50/40 border border-slate-200 hover:border-amber-500 rounded-xl text-center transition-all group cursor-pointer"
+                  >
+                    <span className="text-[10px] font-bold text-slate-700 group-hover:text-amber-600 transition-colors">Student</span>
+                    <span className="text-[8px] font-mono text-slate-400 mt-1.5 font-bold">U: jane.student</span>
+                    <span className="text-[8px] font-mono text-slate-400">P: password</span>
+                  </button>
+                </div>
+              </div>
             </div>
           )}
 
@@ -944,22 +1025,7 @@ export default function App() {
                 <form onSubmit={handleSendRecoveryCode} className="space-y-4 text-left">
                   <div className="bg-amber-50 text-amber-800 text-[11px] p-3 rounded-lg flex items-center gap-2">
                     <Key className="w-4 h-4 shrink-0 text-amber-600" />
-                    <span>Enter your registered username and email. We will dispatch a simulated verification OTP code.</span>
-                  </div>
-
-                  <div className="space-y-1">
-                    <label className="block text-[10px] font-bold uppercase text-slate-500 tracking-wider">Username or ID</label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                      <input
-                        type="text"
-                        required
-                        value={forgotUsername}
-                        onChange={(e) => setForgotUsername(e.target.value)}
-                        className="w-full bg-slate-50 border border-slate-200 focus:border-blue-500 focus:bg-white rounded-lg pl-10 pr-4 py-2.5 text-xs text-slate-800 font-medium"
-                        placeholder="e.g. moses.admin or mosesmwamuye"
-                      />
-                    </div>
+                    <span>Enter your registered email. We will retrieve your login username and dispatch a verification OTP.</span>
                   </div>
 
                   <div className="space-y-1">
@@ -972,7 +1038,7 @@ export default function App() {
                         value={forgotEmail}
                         onChange={(e) => setForgotEmail(e.target.value)}
                         className="w-full bg-slate-50 border border-slate-200 focus:border-blue-500 focus:bg-white rounded-lg pl-10 pr-4 py-2.5 text-xs text-slate-800 font-medium"
-                        placeholder="e.g. mosesgamboi272@gmail.com"
+                        placeholder="e.g. mosesmwamuye97@gmail.com"
                       />
                     </div>
                   </div>
@@ -1013,6 +1079,33 @@ export default function App() {
                       <span>. Please check your email inbox.</span>
                     </p>
                   </div>
+
+                  {forgotUsername && (
+                    <div className="bg-emerald-50 border border-emerald-200/60 p-3 rounded-lg text-emerald-800 text-[11px] flex items-center gap-2">
+                      <ShieldCheck className="w-4.5 h-4.5 text-emerald-600 shrink-0 animate-pulse" />
+                      <div>
+                        Recovered Username: <strong className="font-bold text-emerald-950 font-mono select-all text-xs">{forgotUsername}</strong>
+                      </div>
+                    </div>
+                  )}
+
+                  {sentCode && (
+                    <div className="bg-sky-50 border border-sky-200/60 p-3 rounded-lg text-sky-800 text-[11px] flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <Key className="w-4 h-4 text-sky-600 shrink-0" />
+                        <div>
+                          Simulated Reset OTP: <strong className="font-bold text-sky-950 font-mono select-all text-xs">{sentCode}</strong>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setUserInputCode(sentCode)}
+                        className="text-[10px] bg-sky-200 hover:bg-sky-300 text-sky-900 px-2 py-1 rounded font-bold transition-all cursor-pointer"
+                      >
+                        Auto-fill
+                      </button>
+                    </div>
+                  )}
 
                   <div className="space-y-1">
                     <label className="block text-[10px] font-bold uppercase text-slate-500 tracking-wider">Enter Verification OTP</label>
@@ -1126,6 +1219,24 @@ export default function App() {
                   <span>).</span>
                 </p>
               </div>
+
+              {debugOtpCode && (
+                <div className="bg-sky-50 border border-sky-200/60 p-3 rounded-lg text-sky-800 text-[11px] flex items-center justify-between gap-2 animate-fade-in mb-2">
+                  <div className="flex items-center gap-2">
+                    <Key className="w-4 h-4 text-sky-600 shrink-0" />
+                    <div>
+                      Simulated Activation OTP: <strong className="font-bold text-sky-950 font-mono select-all text-xs">{debugOtpCode}</strong>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setVerificationCode(debugOtpCode)}
+                    className="text-[10px] bg-sky-200 hover:bg-sky-300 text-sky-900 px-2 py-1 rounded font-bold transition-all cursor-pointer"
+                  >
+                    Auto-fill
+                  </button>
+                </div>
+              )}
 
               <div className="space-y-1">
                 <label className="block text-[10px] font-bold uppercase text-slate-500 tracking-wider">Enter 6-Digit Code</label>

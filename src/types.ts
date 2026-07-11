@@ -8,7 +8,9 @@ export interface User {
   isVerified?: boolean;
   verificationCode?: string;
   resetCode?: string;
+  password?: string;
 }
+
 
 export interface Student {
   id: number;

@@ -209,6 +209,103 @@ app.delete("/api/dev/simulated-emails", (req: Request, res: Response): void => {
   res.json({ message: "Simulated inbox cleared successfully" });
 });
 
+app.get("/api/dev/db-state", (req: Request, res: Response): void => {
+  res.json(db.getState());
+});
+
+app.post("/api/dev/reset-db", (req: Request, res: Response): void => {
+  const newState = db.reset();
+  res.json({ message: "Database reset successful", state: newState });
+});
+
+app.post("/api/dev/auto-pay-fees", (req: Request, res: Response): void => {
+  const state = db.getState();
+  let count = 0;
+  state.students.forEach(student => {
+    const enrollment = state.studentEnrollments.find(e => e.studentId === student.id && e.status === 'ACTIVE');
+    if (enrollment) {
+      const feeStructure = state.feeStructures.find(f => f.classId === enrollment.classId);
+      if (feeStructure) {
+        const payments = state.feePayments.filter(p => p.studentId === student.id);
+        const paid = payments.reduce((sum, p) => sum + p.amountPaid, 0);
+        const outstanding = feeStructure.totalFees - paid;
+        if (outstanding > 0) {
+          state.feePayments.push({
+            id: state.nextId.feePayments++,
+            studentId: student.id,
+            amountPaid: outstanding,
+            paymentDate: new Date().toISOString().split('T')[0],
+            paymentMethod: 'MPESA',
+            transactionId: `TXN_FSAND_${Math.floor(1000000 + Math.random() * 9000000)}`,
+            receiptNo: `REC-FSAND-${state.nextId.feePayments}`,
+            remarks: 'Bulk auto-paid via Sandbox Simulator panel (Server)',
+            academicYear: '2024'
+          });
+          count++;
+        }
+      }
+    }
+  });
+  if (count > 0) {
+    (db as any).save();
+    db.log(1, 'admin', 'ADMIN', 'SANDBOX_BULK_FEE_PAYMENT', `Sandbox automated script paid remaining outstanding tuition fees for ${count} active students on server.`);
+  }
+  res.json({ message: `Successfully automated full tuition payouts for ${count} students!`, count });
+});
+
+app.post("/api/dev/mark-all-attendance", (req: Request, res: Response): void => {
+  const state = db.getState();
+  const today = new Date().toISOString().split('T')[0];
+  let count = 0;
+
+  state.studentEnrollments.forEach(enroll => {
+    const subs = state.subjects.filter(s => s.classId === enroll.classId);
+    subs.forEach(sub => {
+      const existing = state.attendance.find(a => a.studentId === enroll.studentId && a.subjectId === sub.id && a.date === today);
+      if (!existing) {
+        state.attendance.push({
+          id: state.nextId.attendance++,
+          studentId: enroll.studentId,
+          subjectId: sub.id,
+          date: today,
+          status: 'PRESENT'
+        });
+        count++;
+      }
+    });
+  });
+
+  if (count > 0) {
+    (db as any).save();
+    db.log(1, 'admin', 'ADMIN', 'SANDBOX_BULK_ATTENDANCE', `Sandbox automated script recorded PRESENT attendance for ${count} student-subject sessions today on server.`);
+  }
+  res.json({ message: `Successfully recorded present attendance for ${count} student sessions!`, count });
+});
+
+app.post("/api/dev/quick-switch", (req: Request, res: Response): void => {
+  const { username, role } = req.body;
+  const state = db.getState();
+  const user = state.users.find(u => u.username === username);
+  if (!user) {
+    res.status(404).json({ error: "User not found" });
+    return;
+  }
+
+  const token = generateSecureToken(user.role, user.id);
+  db.createSession(token, user.id, false);
+
+  let profile = null;
+  if (user.role === 'STUDENT') {
+    profile = state.students.find(s => s.userId === user.id) || null;
+  } else if (user.role === 'STAFF') {
+    profile = state.staff.find(s => s.userId === user.id) || null;
+  }
+
+  db.log(user.id, user.username, user.role, 'SANDBOX_QUICK_SWITCH', `Developer quick-switched profile view to ${user.username} (${role}) on server`);
+
+  res.json({ token, user: { id: user.id, username: user.username, email: user.email, role: user.role }, profile });
+});
+
 // --- AUTHENTICATION ENDPOINTS ---
 app.post("/api/auth/login", (req: Request, res: Response): void => {
   const { username, password } = req.body;
@@ -1917,7 +2014,8 @@ app.post("/api/auth/signup", (req: Request, res: Response): void => {
       needsVerification: true,
       username: user.username,
       email: user.email,
-      role: user.role
+      role: user.role,
+      _debugCode: verificationCode
     });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
@@ -2059,7 +2157,8 @@ app.post("/api/auth/signup-staff", (req: Request, res: Response): void => {
       needsVerification: true,
       username: user.username,
       email: user.email,
-      role: user.role
+      role: user.role,
+      _debugCode: verificationCode
     });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
@@ -2163,7 +2262,8 @@ app.post("/api/auth/resend-code", (req: Request, res: Response): void => {
   }).catch(err => console.error("Error resending signup code:", err));
 
   res.json({
-    message: "A new activation code has been issued to your email"
+    message: "A new activation code has been issued to your email",
+    _debugCode: newCode
   });
 });
 
@@ -2223,7 +2323,8 @@ app.post("/api/auth/forgot-password-request", (req: Request, res: Response): voi
 
   res.json({
     message: "An authorization code was dispatched to your email address.",
-    username: user.username // Return the recovered username so the UI can prefill it!
+    username: user.username, // Return the recovered username so the UI can prefill it!
+    _debugCode: resetCode
   });
 });
 

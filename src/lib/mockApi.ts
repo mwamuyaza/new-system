@@ -60,7 +60,7 @@ export const initializeMockApi = () => {
 
     const db = getDb();
     const { url = '', method = 'GET', data: rawData, headers } = config;
-    const pathname = url.split('?')[0];
+    const pathname = url.split('?')[0].replace(/^(http|https)://[^/]+/,'');
     const query = parseQueryParams(url);
     const body = rawData ? (typeof rawData === 'string' ? JSON.parse(rawData) : rawData) : null;
 

@@ -3,17 +3,11 @@ import { MockDbState, OutboxMessage } from './mockDbTypes';
 const DEFAULT_DB_STATE = (): MockDbState => ({
   users: [
     { id: 1, username: 'admin', email: 'mosesmwamuye97@gmail.com', role: 'ADMIN', isActive: true, createdAt: '2026-01-01T00:00:00.000Z' },
-    password: 'admin',
     { id: 2, username: 'john.staff', email: 'john@university.com', role: 'STAFF', isActive: true, createdAt: '2026-01-01T00:00:00.000Z' },
-    password: 'password',
     { id: 3, username: 'jane.student', email: 'jane@university.com', role: 'STUDENT', isActive: true, createdAt: '2026-01-01T00:00:00.000Z' },
-    password: 'password',
     { id: 4, username: 'robert.staff', email: 'robert@university.com', role: 'STAFF', isActive: true, createdAt: '2026-01-01T00:00:00.000Z' },
-    password: 'password',
     { id: 5, username: 'isaac.staff', email: 'isaac@university.com', role: 'STAFF', isActive: true, createdAt: '2026-01-01T00:00:00.000Z' },
-    password: 'password',
     { id: 6, username: 'richard.staff', email: 'richard@university.com', role: 'STAFF', isActive: true, createdAt: '2026-01-01T00:00:00.000Z' },
-    password: 'password',
   ],
   students: [
     {
@@ -286,7 +280,6 @@ const DEFAULT_DB_STATE = (): MockDbState => ({
   ],
   logs: [
     { id: 1, userId: 1, username: 'admin', role: 'ADMIN', action: 'SYSTEM_STARTUP', details: 'University Sandbox Database initialized successfully client-side.', timestamp: new Date().toISOString() },
-    password: 'admin',
   ],
   courseNotes: [
     {
